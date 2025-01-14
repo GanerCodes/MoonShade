@@ -1,0 +1,90 @@
+ shoutout to thetawise for generating opengl boilerplate
+
+󰋺("kots", *) ; cd(@)
+󰋺("util", *)
+
+VERT_SHADE_CODE = ␛
+󰦥󰦥󰦥󰦥󰦥
+#version 330
+layout(location = 0) in vec3 aPos;
+in vec4 pos;
+void main() { gl_Position = pos; }
+󰦥󰦥󰦥󰦥󰦥
+
+rot_XZ = 󰲣[x₀⋅􋐳(y)-x₂⋅􋐲(y),x₁,x₀⋅􋐲(y)+x₂⋅􋐳(y)]
+rot_YZ = 󰲣[x₀,x₁⋅􋐳(y)-x₂⋅􋐲(y),x₁⋅􋐲(y)+x₂⋅􋐳(y)]
+
+set_texture_param = 𝚲"MIN"⋄"MAG"ᐖglTexParameteri(GL_TEXTURE_2D, eval(‹GL_TEXTURE_⟦⟞⟧_FILTER›), GL_NEAREST)
+set_vp_clear = ⥌r,g,b,w=𝔑,h=𝔑↦glViewport(0,0,w,h) ► glClearColor(r,g,b,1) ► glClear(GL_COLOR_BUFFER_BIT)
+
+glfw.init ∨ (ⴴ⨳"glfw can not be initialized!")
+
+window = glfw.create_window(𝔑, 𝔑, "OpenGL Window", □, □)
+window ∨ (ⴴ⨳glfw.terminate() ► "glfw window can not be created!")
+
+glfw.make_context_current(window)
+
+⊢ load_shader(C):
+    shader = OpenGL.GL.shaders.compileProgram(
+        ⠤(VERT_SHADE_CODE⋄GL_VERTEX_SHADER, C⋄GL_FRAGMENT_SHADER) ␛
+            ꟿ OpenGL.GL.shaders.compileShader)
+    vrts = np.array([󷰾, 󷰾, 0,
+                     1, 󷰾, 0,
+                     󷰾, 1, 0,
+                     1, 1, 0], dtype=np.float32)
+    glBindBuffer(GL_ARRAY_BUFFER, VBO ≔ glGenBuffers(1))
+    glBufferData(GL_ARRAY_BUFFER, vrts.nbytes, vrts, GL_STATIC_DRAW)
+    glEnableVertexAttribArray(pos ≔ glGetAttribLocation(shader, 'pos'))
+    glVertexAttribPointer(pos, 3, GL_FLOAT, GL_FALSE, 0, None)
+    ↪ shader, glGenTextures(1)
+
+⊢ unif(shader, n, f, ⠤𝔸, 𝑐={}):
+    ¿n∉𝑐: 𝑐ₙ = glGetUniformLocation(shader, n)
+    globals()[‹glUniform⟦f⟧›](𝑐ₙ,⠤𝔸)
+
+⊢ render_preview(l={"res": 𝔑⋄𝔑}):
+    (shader, texture), 𝑐 = load_shader(SHADE_CODE≔("shader.glsl")), {}
+    
+    ⊢ framebuffer_resize(window, w, h):
+        glViewport(0, 0, ⠤l["res"]≔w⋄h)
+    glfw.set_framebuffer_size_callback(window, framebuffer_resize)
+    
+    framebuffer_resize(window, ⠤l["res"])
+    
+    𝑇 = FPS_Tracker
+    keys = Activator
+    vp_ang, vp_loc, invert = 0⋄0, 0⋄0⋄0, ⴴ
+    ➰ ¬glfw.window_should_close(window):
+        set_vp_clear(0,0,0,⠤res≔l["res"])
+        glUseProgram(shader)
+        
+        Δcur = glfw.get_cursor_pos(window)󱑼(wc≔resᐵ⋅½) ꟿ - ᴍ 𝑖
+         glfw.set_cursor_pos(window, ⠤wc)
+        vp_ang = vp_ang 󱑼 Δcur ꟿ󰲣x+τ⋅y/res₁
+        vp_ang₁ = ((vp_ang₁, 󷺍)⤈, 󷱮)⤉
+        
+        HK = 󰲡glfw.get_key(window, getattr(glfw,‹KEY_⟦x⟧›))
+        KD = 󰲡keys(x, HK(x))
+        
+        moveΔ = 0⋄0⋄0
+        
+        unif(shader, "res",     "2f", ⠤res, 𝑐=𝑐)
+        unif(shader, "t",       "1f", 𝑇󰁏, 𝑐=𝑐)
+        
+        glActiveTexture(GL_TEXTURE0)
+        glBindTexture(GL_TEXTURE_2D, texture)
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4)
+        
+        glfw.swap_buffers(window) ► glfw.poll_events()
+        ¿(𝑇)󰀂%30→¬:
+            𝑇☾
+            try:
+                ¿SHADE_CODE≠(("shader.glsl")≕SHADE_CODE):
+                    ‹Reloading shader.›☾
+                    (shader, texture), 𝑐 = load_shader(("shader.glsl")), {}
+                    framebuffer_resize(window, ⠤l["res"])
+            except Exception as ε:
+                ‹Error loading shader: ⟦ε⟧›☾
+
+render_preview
+glfw.terminate
