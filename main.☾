@@ -1,7 +1,70 @@
  shoutout to thetawise for generating opengl boilerplate
 
 󰋺("kots", *) ; cd(@)
+󰋺(cpy_dir / "Extra/j☾/rgx_golfatron", "rgx_golfatron")
 󰋺("util", *)
+󰋺("peggle2", ⠤‹peggle2 Ń›⍭)
+
+GRAM=󰦥󰦥󰦥󰦥󰦥
+main = (script ∨ special ∨ grp ∨ num ∨ opz ∨ var ∨ 𝗪)*
+main_comments = (comment ∨ ~‹.|\n›)*
+script  = (sub = ~‹%SCRIPTD%+› ) ∨ (sup = ~‹%SCRIPTU%+› )
+special = ~‹%SPECIAL%›
+
+grp = ~‹[[{(]› main ~‹[\]})]›
+num = pos_num ∨ neg_num
+pos_num = ƨ(~‹0([bB][01]+|[oO][0-7]+|[xX][0-9a-fA-F]+)|([0-9]+(\.[0-9]*)?|[0-9]*\.[0-9]+)(e[+\-]?[0-9]+)?›)
+neg_num = ƨ(~‹󷰽([󷱈󷱐][󷰽󷰾]+|[󷱍󷱕][󷰽-󷱄]+|[󷱎󷱖][󷰽-󷱆󷱇-󷱌󷱏-󷱔]+)|([󷰽-󷱆]+(\.[󷰽-󷱆]*)?|[󷰽-󷱆]*\.[󷰽-󷱆]+)(󷱋[+\-]?[󷰽-󷱆]+)?›)
+
+var = ¬(~‹[0-9]›) ƨ((¬script ¬special ¬𝗪 ¬opz ~‹[^(){}[\]]›)+)
+opz = ~‹[\\\-^!%@&+|`'"#$,.:;?*/<>~=]›
+
+𝘄 = ~‹[ \t]+›
+𝗪 = ~‹[ \t\n]+›
+comment = ~‹((|(//))[^\n]*(?=\n|\Z))|(🟑[^🟑]*(🟑|\Z))|(֎[^֎]*(֎|\Z))›
+󰦥󰦥󰦥󰦥󰦥
+
+REPLACES = 󰦥󰦥󰦥󰦥󰦥
+𝟙 float 𝟚 vec2 𝟛 vec3 𝟜 vec4
+𝑖 int ⫰ abs 􋐳 cos 􋐲 sin ⋅ *
+÷ / ⭜ ? ⭝ : ↪ return ¿ if
+¡ else ≤ <= ≥ >= 􋐼 exp ⴵ sign ∀ for
+⤈ min ⤉ max ½ 0.5 ⅓ 0.333333333 ⅔ 0.666666666 ⅘ 0.8 ⅒ 0.1 ⅕ 0.2
+⸓ mod ⬓ floor ⬒ ceil 󷹄 clamp π PI τ TAU 󷺍 HALF_PI
+󰦥󰦥󰦥󰦥󰦥 󱖔􋋉􌿅􋂝􊿉→⍭󰈲→ᐵ󷹎¹𝘀ᐸ󱖔􋀙
+
+⮌ util ⨡ SCRIPT, UPSIDEDOWNSYNDROME
+⨡ os, shutil
+flip = UPSIDEDOWNSYNDROME.flip
+bp = SCRIPT󰀂ᴴᴬᴿ􋕟󰀒ᵁᴮ⋄SCRIPT󰀂ᴴᴬᴿ􋕟󰀒ᵁᴾ⋄REPLACES⁻ ᴍ rgx_golfatron
+ll = ‹SCRIPTD SCRIPTU SPECIAL›⍭ᐵ⛶⟗␛%
+GRAM = ll 󰛔ᴳᴿᴬᴹ bp
+gram = peggle2(GRAM)
+
+𝚃, 𝔗, 𝔗𝔗 = ℵ(T=✓), 󷺻Ń(⟞, e=𝚃), 󷺻𝔗(⟞.as_txt)
+mp = 󷺹≕h󷹝ᑀ≤128∨h.isidentifier() ⭜h⭝ ⟞󷹜¹⁶5⭢+ᵜ␛þ
+fmt_js_ᔐ = ␛\⋄␛$ →󰛔← ␛\␛\⋄␛\␛$
+mkexp, mkgrp = 𝚲Ń(‹󷺗expr›, ⠤𝔸), 󰲡Ń(‹󷺗󷺗grp›, 𝔗(x₀), ⠤𝔸, 𝔗(x₁))
+mkvar,mkopt,mknum = ‹var opert number›⍭ᐖ󰲡Ń(⟞,𝔗(x))
+𝚜 = Ń(␛𝘄, 𝔗(𝘀))
+𝚍𝚘𝚝, 𝚌𝚘𝚖, 𝚌𝚕𝚗, 𝚖𝚗𝚜, 𝚎𝚚𝚕, 𝚊𝚖𝚛, 𝚏𝚕𝚜, 𝚍𝚘𝚝𝚜 = (‹.,:-=↦›󰌷⍭‹false ...›)ᴍmkopt
+⊢ transpile_glsl(x, n=∞, comments=✓):
+    ¿comments: ↪ transpile_glsl(gram(x, ‹main_comments›, remove_trashes=✗).rm(‹comment›).as_txt, n, ✗)
+    󱁕 = gram(x)
+    ¿n<0: ↪󱁕
+    @(󱁕.ftrp(‹sub sup›⍭, ⬤))
+    ⊢ ƒ(󱁕):
+        t = SCRIPT.nrm(󱁕.as_txt)
+        ¿󱁕ᵗ≡‹sub›: ↪ mkgrp(␛[␛], transpile_glsl(t, 0))
+        ¡        : ↪ mkexp(𝚍𝚘𝚝, mkvar(t))
+    ¿n<1: ↪󱁕
+    󱁕.ftrp(‹script󷺗󷺗󷺗󷺗󷺗›⍭, 󱁕↦󱁕₀, pre=✓)
+    󱁕.ftrp(‹neg_num󷺗󷺗󷺗󷺗›⍭, 󱁕↦mkexp(𝚖𝚗𝚜, mknum(flip(󱁕.as_txt))))
+    󱁕.ftrp(‹var special›⍭, 󱁕↦󱁕.as_txt≕α∈REPLACES ⭜󱁕.copy(c=⛶𝔗(REPLACES󰃤))⭝ 󱁕)
+    ↪ 󱁕.as_txt
+
+ transpile_glsl("𝟚 x = 𝟚(2,󷰿); xʸ=2;")ᴾ
+ exit
 
 VERT_SHADE_CODE = ␛
 󰦥󰦥󰦥󰦥󰦥
@@ -25,6 +88,8 @@ window ∨ (ⴴ⨳glfw.terminate() ► "glfw window can not be created!")
 glfw.make_context_current(window)
 
 ⊢ load_shader(C):
+    C󷸊󱖔ᵗʳᵃⁿˢᵖⁱˡᵉ􋕟ᵍˡˢˡ
+    C☾
     shader = OpenGL.GL.shaders.compileProgram(
         ⠤(VERT_SHADE_CODE⋄GL_VERTEX_SHADER, C⋄GL_FRAGMENT_SHADER) ␛
             ꟿ OpenGL.GL.shaders.compileShader)
@@ -43,7 +108,7 @@ glfw.make_context_current(window)
     globals()[‹glUniform⟦f⟧›](𝑐ₙ,⠤𝔸)
 
 ⊢ render_preview(l={"res": 𝔑⋄𝔑}):
-    (shader, texture), 𝑐 = load_shader(SHADE_CODE≔("shader.glsl")), {}
+    (shader, texture), 𝑐 = load_shader(SHADE_CODE≔("shader.g☾")), {}
     
     ⊢ framebuffer_resize(window, w, h):
         glViewport(0, 0, ⠤l["res"]≔w⋄h)
@@ -79,9 +144,9 @@ glfw.make_context_current(window)
         ¿(𝑇)󰀂%30→¬:
             𝑇☾
             try:
-                ¿SHADE_CODE≠(("shader.glsl")≕SHADE_CODE):
+                ¿SHADE_CODE≠(("shader.g☾")≕SHADE_CODE):
                     ‹Reloading shader.›☾
-                    (shader, texture), 𝑐 = load_shader(("shader.glsl")), {}
+                    (shader, texture), 𝑐 = load_shader(("shader.g☾")), {}
                     framebuffer_resize(window, ⠤l["res"])
             except Exception as ε:
                 ‹Error loading shader: ⟦ε⟧›☾
