@@ -23,7 +23,7 @@ exec("from OpenGL.GL import *")
         𝕊󰀂 += 1
         𝕊󰁏 = 𝕊ᵗ-𝕊ᵗ⁰
         ↪ 𝕊
-    __str__ = 𝕊↦‹FPS󰂠₌⟦sub(𝕊ᴺ)⟧: ⟦1/𝕊󰀅ᴾ󰀒→▢2⟧›
+    __str__ = 𝕊↦‹FPS󰂠₌⟦sub(𝕊ᴺ)⟧: ⟦1/𝕊󰀅ᴾ󰀒→▢²⟧›
 
 Ω Activator:
     __slots__ = ␛d

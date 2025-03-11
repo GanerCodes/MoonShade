@@ -1,7 +1,7 @@
  shoutout to thetawise for generating opengl boilerplate
 
 󰋺("kots", *) ; cd(@)
-󰋺(cpy_dir / "Extra/j☾/rgx_golfatron", "rgx_golfatron")
+󰋺(cpy_dir / "☾/Libraries/j☾/rgx_golfatron", "rgx_golfatron")
 󰋺("util", *)
 󰋺("peggle2", ⠤‹peggle2 Ń›⍭)
 
