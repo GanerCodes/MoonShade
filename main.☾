@@ -1,70 +1,8 @@
- shoutout to thetawise for generating opengl boilerplate
-
-󰋺("kots", *) ; cd(@)
-󰋺(cpy_dir / "☾/Libraries/j☾/rgx_golfatron", "rgx_golfatron")
-󰋺("util", *)
-󰋺("peggle2", ⠤‹peggle2 Ń›⍭)
-
-GRAM=󰦥󰦥󰦥󰦥󰦥
-main = (script ∨ special ∨ grp ∨ num ∨ opz ∨ var ∨ 𝗪)*
-main_comments = (comment ∨ ~‹.|\n›)*
-script  = (sub = ~‹%SCRIPTD%+› ) ∨ (sup = ~‹%SCRIPTU%+› )
-special = ~‹%SPECIAL%›
-
-grp = ~‹[[{(]› main ~‹[\]})]›
-num = pos_num ∨ neg_num
-pos_num = ƨ(~‹0([bB][01]+|[oO][0-7]+|[xX][0-9a-fA-F]+)|([0-9]+(\.[0-9]*)?|[0-9]*\.[0-9]+)(e[+\-]?[0-9]+)?›)
-neg_num = ƨ(~‹󷰽([󷱈󷱐][󷰽󷰾]+|[󷱍󷱕][󷰽-󷱄]+|[󷱎󷱖][󷰽-󷱆󷱇-󷱌󷱏-󷱔]+)|([󷰽-󷱆]+(\.[󷰽-󷱆]*)?|[󷰽-󷱆]*\.[󷰽-󷱆]+)(󷱋[+\-]?[󷰽-󷱆]+)?›)
-
-var = ¬(~‹[0-9]›) ƨ((¬script ¬special ¬𝗪 ¬opz ~‹[^(){}[\]]›)+)
-opz = ~‹[\\\-^!%@&+|`'"#$,.:;?*/<>~=]›
-
-𝘄 = ~‹[ \t]+›
-𝗪 = ~‹[ \t\n]+›
-comment = ~‹((|(//))[^\n]*(?=\n|\Z))|(🟑[^🟑]*(🟑|\Z))|(֎[^֎]*(֎|\Z))›
-󰦥󰦥󰦥󰦥󰦥
-
-REPLACES = 󰦥󰦥󰦥󰦥󰦥
-𝟙 float 𝟚 vec2 𝟛 vec3 𝟜 vec4
-𝑖 int ⫰ abs 􋐳 cos 􋐲 sin ⋅ *
-÷ / ⭜ ? ⭝ : ↪ return ¿ if
-¡ else ≤ <= ≥ >= 􋐼 exp ⴵ sign ∀ for
-⤈ min ⤉ max ½ 0.5 ⅓ 0.333333333 ⅔ 0.666666666 ⅘ 0.8 ⅒ 0.1 ⅕ 0.2 ¾ 0.75
-⸓ mod ⬓ floor ⬒ ceil 󷹄 clamp π PI τ TAU 󷺍 HALF_PI
-󰦥󰦥󰦥󰦥󰦥 󱖔􋋉􌿅􋂝􊿉→⍭󰈲→ᐵ󷹎¹𝘀ᐸ󱖔􋀙
-
-⮌ util ⨡ SCRIPT, UPSIDEDOWNSYNDROME
+󰋺(‹./util›, *)
+󰋺(‹g☾›)
 ⨡ os, shutil
-flip = UPSIDEDOWNSYNDROME.flip
-bp = SCRIPT󰀂ᴴᴬᴿ􋕟󰀒ᵁᴮ⋄SCRIPT󰀂ᴴᴬᴿ􋕟󰀒ᵁᴾ⋄REPLACES⁻ ᴍ rgx_golfatron
-ll = ‹SCRIPTD SCRIPTU SPECIAL›⍭ᐵ⛶⟗␛%
-GRAM = ll 󰛔ᴳᴿᴬᴹ bp
-gram = peggle2(GRAM)
 
-𝚃, 𝔗, 𝔗𝔗 = ℵ(T=✓), 󷺻Ń(⟞, e=𝚃), 󷺻𝔗(⟞.as_txt)
-mp = 󷺹≕h󷹝ᑀ≤128∨h.isidentifier() ⭜h⭝ ⟞󷹜¹⁶5⭢+ᵜ␛þ
-fmt_js_ᔐ = ␛\⋄␛$ →󰛔← ␛\␛\⋄␛\␛$
-mkexp, mkgrp = 𝚲Ń(‹󷺗expr›, ⠤𝔸), 󰲡Ń(‹󷺗󷺗grp›, 𝔗(x₀), ⠤𝔸, 𝔗(x₁))
-mkvar,mkopt,mknum = ‹var opert number›⍭ᐖ󰲡Ń(⟞,𝔗(x))
-𝚜 = Ń(␛𝘄, 𝔗(𝘀))
-𝚍𝚘𝚝, 𝚌𝚘𝚖, 𝚌𝚕𝚗, 𝚖𝚗𝚜, 𝚎𝚚𝚕, 𝚊𝚖𝚛, 𝚏𝚕𝚜, 𝚍𝚘𝚝𝚜 = (‹.,:-=↦›󰌷⍭‹false ...›)ᴍmkopt
-⊢ transpile_glsl(x, n=∞, comments=✓):
-    ¿comments: ↪ transpile_glsl(gram(x, ‹main_comments›, remove_trashes=✗).rm(‹comment›).as_txt, n, ✗)
-    󱁕 = gram(x)
-    ¿n<0: ↪󱁕
-    @(󱁕.ftrp(‹sub sup›⍭, ⬤))
-    ⊢ ƒ(󱁕):
-        t = SCRIPT.nrm(󱁕.as_txt)
-        ¿󱁕ᵗ≡‹sub›: ↪ mkgrp(␛[␛], transpile_glsl(t, 0))
-        ¡        : ↪ mkexp(𝚍𝚘𝚝, mkvar(t))
-    ¿n<1: ↪󱁕
-    󱁕.ftrp(‹script󷺗󷺗󷺗󷺗󷺗›⍭, 󱁕↦󱁕₀, pre=✓)
-    󱁕.ftrp(‹neg_num󷺗󷺗󷺗󷺗›⍭, 󱁕↦mkexp(𝚖𝚗𝚜, mknum(flip(󱁕.as_txt))))
-    󱁕.ftrp(‹var special›⍭, 󱁕↦󱁕.as_txt≕α∈REPLACES ⭜󱁕.copy(c=⛶𝔗(REPLACES󰃤))⭝ 󱁕)
-    ↪ 󱁕.as_txt
-
- transpile_glsl("𝟚 x = 𝟚(2,󷰿); xʸ=2;")ᴾ
- exit
+𝔑 = 512
 
 VERT_SHADE_CODE = ␛
 󰦥󰦥󰦥󰦥󰦥
@@ -77,77 +15,100 @@ void main() { gl_Position = pos; }
 rot_XZ = 󰲣[x₀⋅􋐳(y)-x₂⋅􋐲(y),x₁,x₀⋅􋐲(y)+x₂⋅􋐳(y)]
 rot_YZ = 󰲣[x₀,x₁⋅􋐳(y)-x₂⋅􋐲(y),x₁⋅􋐲(y)+x₂⋅􋐳(y)]
 
-set_texture_param = 𝚲"MIN"⋄"MAG"ᐖglTexParameteri(GL_TEXTURE_2D, eval(‹GL_TEXTURE_⟦⟞⟧_FILTER›), GL_NEAREST)
-set_vp_clear = ⥌r,g,b,w=𝔑,h=𝔑↦glViewport(0,0,w,h) ► glClearColor(r,g,b,1) ► glClear(GL_COLOR_BUFFER_BIT)
+set_texture_param = 𝚲‹MIN MAG›⍭ᐖglTexParameteri(GL_TEXTURE_2D, eval(‹GL_TEXTURE_⟦⟞⟧_FILTER›), GL_NEAREST)
+set_vp_clear = ⥌r,g,b,w,h↦glViewport(0,0,w,h) ► glClearColor(r,g,b,1) ► glClear(GL_COLOR_BUFFER_BIT)
 
-glfw.init ∨ (ⴴ⨳"glfw can not be initialized!")
+glfw.init ∨⬅ ✗⨳‹glfw can not be initialized!›
 
-window = glfw.create_window(𝔑, 𝔑, "OpenGL Window", □, □)
-window ∨ (ⴴ⨳glfw.terminate() ► "glfw window can not be created!")
+window = glfw.create_window(𝔑, 𝔑, ‹☾Shade›, □, □)
+window ∨⬅ ✗⨳glfw.terminate ► ‹glfw window can not be created!›
 
 glfw.make_context_current(window)
 
 ⊢ load_shader(C):
-    C󷸊󱖔ᵗʳᵃⁿˢᵖⁱˡᵉ􋕟ᵍˡˢˡ
+    C=goon_header+𝗻+transpile_glsl(C)
     C☾
     shader = OpenGL.GL.shaders.compileProgram(
         ⠤(VERT_SHADE_CODE⋄GL_VERTEX_SHADER, C⋄GL_FRAGMENT_SHADER) ␛
             ꟿ OpenGL.GL.shaders.compileShader)
-    vrts = np.array([󷰾, 󷰾, 0,
-                     1, 󷰾, 0,
-                     󷰾, 1, 0,
-                     1, 1, 0], dtype=np.float32)
+    vrts = np.array([󷰾,󷰾,0, 1,󷰾,0, 󷰾,1,0, 1,1,0], dtype=np.float32)
     glBindBuffer(GL_ARRAY_BUFFER, VBO ≔ glGenBuffers(1))
     glBufferData(GL_ARRAY_BUFFER, vrts.nbytes, vrts, GL_STATIC_DRAW)
-    glEnableVertexAttribArray(pos ≔ glGetAttribLocation(shader, 'pos'))
-    glVertexAttribPointer(pos, 3, GL_FLOAT, GL_FALSE, 0, None)
+    glEnableVertexAttribArray(pos ≔ glGetAttribLocation(shader, ‹pos›))
+    glVertexAttribPointer(pos, 3, GL_FLOAT, GL_FALSE, 0, □)
     ↪ shader, glGenTextures(1)
 
 ⊢ unif(shader, n, f, ⠤𝔸, 𝑐={}):
     ¿n∉𝑐: 𝑐ₙ = glGetUniformLocation(shader, n)
     globals()[‹glUniform⟦f⟧›](𝑐ₙ,⠤𝔸)
 
-⊢ render_preview(l={"res": 𝔑⋄𝔑}):
-    (shader, texture), 𝑐 = load_shader(SHADE_CODE≔("shader.g☾")), {}
+⊢ render_preview(l=ℵ(res=𝔑⋄𝔑)):
+    (shader, texture), 𝑐 = load_shader(SHADE_CODE≔(‹shader.g☾›)), {}
     
     ⊢ framebuffer_resize(window, w, h):
-        glViewport(0, 0, ⠤l["res"]≔w⋄h)
+        glViewport(0, 0, ⠤l􊬏ᵣₑₛ􊬐≔w⋄h)
     glfw.set_framebuffer_size_callback(window, framebuffer_resize)
     
-    framebuffer_resize(window, ⠤l["res"])
+    framebuffer_resize(window, ⠤l􊬏ᵣₑₛ􊬐)
+    glfw.swap_interval(0)
     
-    𝑇 = FPS_Tracker
-    keys = Activator
-    vp_ang, vp_loc, invert = 0⋄0, 0⋄0⋄0, ⴴ
+    𝚗𝚝 = 0
+    𝑇, keys = FPS_Tracker, Activator
+    vp_ang, vp_loc, invert = 0⋄0, 󷰾󷰽⋄0⋄0, ⴴ
+    
+    mouse = 𝚲𝔸 ⭜glfw.set_cursor_pos(window,⠤𝔸)⭝ glfw.get_cursor_pos(window)
+    
+    pcur = cur = mouse
     ➰ ¬glfw.window_should_close(window):
-        set_vp_clear(0,0,0,⠤res≔l["res"])
+        set_vp_clear(0,0,0,⠤res≔l􊬏ᵣₑₛ􊬐)
         glUseProgram(shader)
         
-        Δcur = glfw.get_cursor_pos(window)󱑼(wc≔resᐵ⋅½) ꟿ - ᴍ 𝑖
-         glfw.set_cursor_pos(window, ⠤wc)
-        vp_ang = vp_ang 󱑼 Δcur ꟿ󰲣x+τ⋅y/res₁
+        wc = resᐵ½
+        
+        cur = mouse
+        Δcur = cur󱑼pcur ꟿ - ᴍ 𝑖
+        ¿Δcurᴍ⫰⨁ > wc⤈⋅⅓:
+            cur,Δcur=pcur,2₀
+        ¿cur󱑼wcꟿ-ᐵ²ᐸ⨁≥(wc⨁→⋅⅒)²:
+            mouse(⠤cur≔wc󱑼Δcurꟿ+)
+        pcur = cur
+        Δcur₀ 󷸊⋅ res₀÷res₁
+        vp_ang = vp_ang󱑼Δcur ꟿ󰲣x+τ⋅y/res₁
         vp_ang₁ = ((vp_ang₁, 󷺍)⤈, 󷱮)⤉
         
         HK = 󰲡glfw.get_key(window, getattr(glfw,‹KEY_⟦x⟧›))
         KD = 󰲡keys(x, HK(x))
         
         moveΔ = 0⋄0⋄0
+        ¿HK∘␛A            : moveΔ₀ 󷸊- 1
+        ¿HK∘␛D            : moveΔ₀ 󷸊+ 1
+        ¿HK∘␛W            : moveΔ₂ 󷸊- 1
+        ¿HK∘␛S            : moveΔ₂ 󷸊+ 1
+        moveΔ = rot_XZ(rot_YZ(moveΔ, ¯vp_ang₁), vp_ang₀)
+        ¿HK∘"SPACE"       : moveΔ₁ 󷸊+ 1
+        ¿HK∘"LEFT_SHIFT"  : moveΔ₁ 󷸊- 1
+        ¿HK∘"LEFT_CONTROL": moveΔ  󷸊ᐵ5
+        vp_loc = vp_loc󱑼moveΔ ꟿ󰲣x+𝑇󰀷⋅y
         
-        unif(shader, "res",     "2f", ⠤res, 𝑐=𝑐)
-        unif(shader, "t",       "1f", 𝑇󰁏, 𝑐=𝑐)
+        unif(shader, ‹res󷺗󷺗󷺗›, ‹2f›, ⠤res   , 𝑐=𝑐)
+        unif(shader, ‹vp_loc›, ‹3f›, ⠤vp_loc, 𝑐=𝑐)
+        unif(shader, ‹vp_ang›, ‹2f›, ⠤vp_ang, 𝑐=𝑐)
+        unif(shader, ‹t󷺗󷺗󷺗󷺗󷺗›, ‹1f›,  𝑇󰁏    , 𝑐=𝑐)
         
         glActiveTexture(GL_TEXTURE0)
         glBindTexture(GL_TEXTURE_2D, texture)
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4)
         
         glfw.swap_buffers(window) ► glfw.poll_events()
-        ¿(𝑇)󰀂%30→¬:
+        𝑇.limit∘240
+        ¿(𝑇)󰁏≥𝚗𝚝:
             𝑇☾
+            𝚗𝚝 = 𝑇󰁏+1
             try:
-                ¿SHADE_CODE≠(("shader.g☾")≕SHADE_CODE):
+                ¿SHADE_CODE≠(𝚜≔(‹shader.g☾›)≕SHADE_CODE):
                     ‹Reloading shader.›☾
-                    (shader, texture), 𝑐 = load_shader(("shader.g☾")), {}
-                    framebuffer_resize(window, ⠤l["res"])
+                    (shader, texture), 𝑐 = load_shader(𝚜), {}
+                    framebuffer_resize(window, ⠤l􊬏ᵣₑₛ􊬐)
             except Exception as ε:
                 ‹Error loading shader: ⟦ε⟧›☾
 
