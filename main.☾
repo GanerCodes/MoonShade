@@ -100,7 +100,7 @@ glfw.make_context_current(window)
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4)
         
         glfw.swap_buffers(window) ► glfw.poll_events()
-        𝑇.limit∘240
+        𝑇.limit∘2 240
         ¿(𝑇)󰁏≥𝚗𝚝:
             𝑇☾
             𝚗𝚝 = 𝑇󰁏+1
