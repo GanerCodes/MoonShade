@@ -1,8 +1,10 @@
+󰋺(␛🌈)
 󰋺(‹./util›, *)
 󰋺(‹g☾›)
 ⨡ os, shutil
 
 𝔑 = 512
+FPS_LIMIT = 120  240
 
 VERT_SHADE_CODE = ␛
 󰦥󰦥󰦥󰦥󰦥
@@ -100,7 +102,7 @@ glfw.make_context_current(window)
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4)
         
         glfw.swap_buffers(window) ► glfw.poll_events()
-        𝑇.limit∘2 240
+        𝑇.limit∘FPS_LIMIT
         ¿(𝑇)󰁏≥𝚗𝚝:
             𝑇☾
             𝚗𝚝 = 𝑇󰁏+1
@@ -110,7 +112,7 @@ glfw.make_context_current(window)
                     (shader, texture), 𝑐 = load_shader(𝚜), {}
                     framebuffer_resize(window, ⠤l􊬏ᵣₑₛ􊬐)
             except Exception as ε:
-                ‹Error loading shader: ⟦ε⟧›☾
+                termclr(‹Error loading shader:𝗻⟦ε⟧›,bg="300")☾
 
 render_preview
 glfw.terminate
