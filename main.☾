@@ -29,7 +29,6 @@ glfw.make_context_current(window)
 
 ⊢ load_shader(C):
     C=goon_header+𝗻+transpile_glsl(C)
-    C☾
     shader = OpenGL.GL.shaders.compileProgram(
         ⠤(VERT_SHADE_CODE⋄GL_VERTEX_SHADER, C⋄GL_FRAGMENT_SHADER) ␛
             ꟿ OpenGL.GL.shaders.compileShader)
@@ -72,10 +71,10 @@ glfw.make_context_current(window)
         ¿Δcurᴍ⫰⨁ > wc⤈⋅⅓:
             cur,Δcur=pcur,2₀
         ¿cur󱑼wcꟿ-ᐵ²ᐸ⨁≥(wc⨁→⋅⅒)²:
-            mouse(⠤cur≔wc󱑼Δcurꟿ+)
+            □ mouse(⠤cur≔wc󱑼Δcurꟿ+)
         pcur = cur
         Δcur₀ 󷸊⋅ res₀÷res₁
-        vp_ang = vp_ang󱑼Δcur ꟿ󰲣x+τ⋅y/res₁
+        vp_ang = vp_ang󱑼Δcur ꟿ󰲣x+τ⋅y÷res₁
         vp_ang₁ = ((vp_ang₁, 󷺍)⤈, 󷱮)⤉
         
         HK = 󰲡glfw.get_key(window, getattr(glfw,‹KEY_⟦x⟧›))
@@ -112,7 +111,7 @@ glfw.make_context_current(window)
                     (shader, texture), 𝑐 = load_shader(𝚜), {}
                     framebuffer_resize(window, ⠤l􊬏ᵣₑₛ􊬐)
             except Exception as ε:
-                termclr(‹Error loading shader:𝗻⟦ε⟧›,bg="300")☾
+                termclr(‹Error loading shader:𝗻⟦ε⟧›,bg=‹300›)☾
 
 render_preview
 glfw.terminate
