@@ -68,10 +68,10 @@ glfw.make_context_current(window)
         
         cur = mouse
         Δcur = cur󱑼pcur ꟿ - ᴍ 𝑖
-        ¿Δcurᴍ⫰⨁ > wc⤈⋅⅓:
-            cur,Δcur=pcur,2₀
-        ¿cur󱑼wcꟿ-ᐵ²ᐸ⨁≥(wc⨁→⋅⅒)²:
-            □ mouse(⠤cur≔wc󱑼Δcurꟿ+)
+         ¿Δcurᴍ⫰⨁ > wc⤈⋅⅓:
+             cur,Δcur=pcur,2₀
+         ¿cur󱑼wcꟿ-ᐵ²ᐸ⨁≥(wc⨁→⋅⅒)²:
+             mouse(⠤cur≔wc󱑼Δcurꟿ+)
         pcur = cur
         Δcur₀ 󷸊⋅ res₀÷res₁
         vp_ang = vp_ang󱑼Δcur ꟿ󰲣x+τ⋅y÷res₁
