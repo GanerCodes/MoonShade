@@ -31,6 +31,7 @@ glfw.make_context_current(window)
 
 ⊢ load_shader(C):
     C=goon_header+𝗻+transpile_glsl(C)
+    (‹/tmp/compiled_shader.glsl›,C)
     try:
         shader = OpenGL.GL.shaders.compileProgram(
             ⠤(VERT_SHADE_CODE⋄GL_VERTEX_SHADER, C⋄GL_FRAGMENT_SHADER) ␛
