@@ -1,6 +1,8 @@
 󰋺(␛🌈)
 󰋺(‹./util›, *)
 󰋺(‹g☾›)
+󰋺(‹/home/ganer/Projects/Moon_BETA/Libraries/text_format.☾›)
+
 ⨡ os, shutil
 
 𝔑 = 512
@@ -29,9 +31,14 @@ glfw.make_context_current(window)
 
 ⊢ load_shader(C):
     C=goon_header+𝗻+transpile_glsl(C)
-    shader = OpenGL.GL.shaders.compileProgram(
-        ⠤(VERT_SHADE_CODE⋄GL_VERTEX_SHADER, C⋄GL_FRAGMENT_SHADER) ␛
-            ꟿ OpenGL.GL.shaders.compileShader)
+    try:
+        shader = OpenGL.GL.shaders.compileProgram(
+            ⠤(VERT_SHADE_CODE⋄GL_VERTEX_SHADER, C⋄GL_FRAGMENT_SHADER) ␛
+                ꟿ OpenGL.GL.shaders.compileShader)
+    except Exception as ε:
+        linenum(ε.args₁ ₀.decode(‹utf-8›))☾
+        ε.args₀☾
+        ✗⨳‹Failed to compile shader!›
     vrts = np.array([󷰾,󷰾,0, 1,󷰾,0, 󷰾,1,0, 1,1,0], dtype=np.float32)
     glBindBuffer(GL_ARRAY_BUFFER, VBO ≔ glGenBuffers(1))
     glBufferData(GL_ARRAY_BUFFER, vrts.nbytes, vrts, GL_STATIC_DRAW)
@@ -67,7 +74,10 @@ glfw.make_context_current(window)
         wc = resᐵ½
         
         cur = mouse
+        ¿cur󰌷⭠resᐵ-ᑈcur⭢⤈<0:
+            cur = pcur
         Δcur = cur󱑼pcur ꟿ - ᴍ 𝑖
+             cur,Δcur=pcur,2₀
          ¿Δcurᴍ⫰⨁ > wc⤈⋅⅓:
              cur,Δcur=pcur,2₀
          ¿cur󱑼wcꟿ-ᐵ²ᐸ⨁≥(wc⨁→⋅⅒)²:
